@@ -1,0 +1,1484 @@
+<!-- Replace YOUR-DOMAIN.com before launch -->
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Can You Password Protect a Google Doc? Alternatives Explained</title>
+<meta content="Learn how to secure your Google Docs. We cover native permission settings, alternatives to password protection, and when to use third-party encryption." name="description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Source+Code+Pro:ital,wght@0,400;0,500;0,600;1,400&amp;display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --color-bg: #0A2342;
+  --color-surface: #0D2D54;
+  --color-surface-2: #123B6B;
+  --color-blueprint-line: rgba(255,255,255,0.35);
+  --color-primary-accent: #FFFFFF;
+  --color-secondary-accent: #4FC3F7;
+  --color-light-bg: #EBF4FF;
+  --color-annotation: #FFD54F;
+  --color-body-dark: #E8F4FD;
+  --color-body-light: #0A2342;
+  --color-muted-dark: rgba(232,244,253,0.76);
+  --color-muted-light: rgba(10,35,66,0.72);
+  --font-heading: 'Bebas Neue', sans-serif;
+  --font-body: 'Source Code Pro', monospace;
+  --max-reading-width: 800px;
+  --max-wide-width: 1180px;
+  --section-padding-v: 86px;
+  --radius-card: 0;
+  --shadow-card: 0 22px 60px rgba(5, 18, 34, 0.18);
+  --transition-speed: 220ms ease;
+  --grid-size: 40px;
+  --blueprint-grid:
+    repeating-linear-gradient(0deg, rgba(255,255,255,0.15) 0 1px, transparent 1px var(--grid-size)),
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.15) 0 1px, transparent 1px var(--grid-size));
+  --crosshair-cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M16 2v10M16 20v10M2 16h10M20 16h10' stroke='%234FC3F7' stroke-width='1.6' stroke-linecap='square'/%3E%3Ccircle cx='16' cy='16' r='5.5' fill='none' stroke='white' stroke-width='1' opacity='.85'/%3E%3C/svg%3E") 16 16, crosshair;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-body-light);
+  background:
+    radial-gradient(circle at 12% 0%, rgba(79,195,247,0.14), transparent 32rem),
+    linear-gradient(180deg, #0A2342 0 44rem, var(--color-light-bg) 44rem 100%);
+  line-height: 1.75;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: var(--blueprint-grid);
+  opacity: 0.04;
+  z-index: -1;
+}
+
+h1, h2, h3, h4, .site-title, .nav-link, .btn, th, .quick-answer-label, .faq-question {
+  font-family: var(--font-heading);
+  letter-spacing: 0.055em;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+h1 {
+  color: var(--color-primary-accent);
+  font-size: clamp(44px, 7vw, 72px);
+  line-height: 0.94;
+  margin-bottom: 1.25rem;
+  text-wrap: balance;
+}
+
+h2 {
+  color: inherit;
+  font-size: clamp(36px, 4.5vw, 58px);
+  line-height: 0.98;
+  margin: 0 0 1.5rem;
+  letter-spacing: 4px;
+}
+
+h3 {
+  color: inherit;
+  font-size: clamp(26px, 3vw, 34px);
+  line-height: 1.05;
+  margin: 1.6rem 0 0.85rem;
+  letter-spacing: 0.075em;
+}
+
+h4 { font-size: 22px; letter-spacing: 0.08em; }
+
+p { margin-bottom: 1.35rem; }
+
+a {
+  color: var(--color-secondary-accent);
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-size: 100% 1px;
+  background-position: 0 100%;
+  transition: color var(--transition-speed), background-size var(--transition-speed), opacity var(--transition-speed);
+}
+
+a:hover { color: var(--color-annotation); background-size: 100% 2px; }
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+ul, ol { margin-bottom: 1.5rem; padding-left: 1.25rem; }
+li { margin-bottom: 0.65rem; padding-left: .25rem; }
+
+.container {
+  width: 100%;
+  max-width: var(--max-wide-width);
+  margin: 0 auto;
+  padding: 0 22px;
+}
+
+.reading-container {
+  width: 100%;
+  max-width: var(--max-reading-width);
+  margin: 0 auto;
+  padding: 0 22px;
+}
+
+section { position: relative; padding: var(--section-padding-v) 0; }
+
+section::after {
+  content: "";
+  position: absolute;
+  left: 22px;
+  right: 22px;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(10,35,66,0.16), transparent);
+  pointer-events: none;
+}
+
+.bg-alt {
+  color: var(--color-body-light);
+  background:
+    linear-gradient(rgba(235,244,255,0.86), rgba(235,244,255,0.86)),
+    repeating-linear-gradient(0deg, rgba(10,35,66,0.055) 0 1px, transparent 1px 40px),
+    repeating-linear-gradient(90deg, rgba(10,35,66,0.055) 0 1px, transparent 1px 40px);
+  border: 0;
+}
+
+/* Header & Nav */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  min-height: 72px;
+  display: flex;
+  align-items: center;
+  background:
+    linear-gradient(rgba(10,35,66,0.92), rgba(10,35,66,0.92)),
+    var(--blueprint-grid);
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  backdrop-filter: blur(14px);
+  cursor: var(--crosshair-cursor);
+}
+
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.site-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--color-primary-accent);
+  font-size: 27px;
+  line-height: 1;
+  text-decoration: none;
+  background-image: none;
+  white-space: nowrap;
+}
+
+.site-title:hover { color: var(--color-annotation); text-decoration: none; }
+
+.brand-mark {
+  display: inline-grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  color: var(--color-secondary-accent);
+  flex: 0 0 auto;
+}
+
+.brand-mark svg { width: 100%; height: 100%; }
+
+.brand-lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-links { display: flex; gap: 24px; align-items: center; }
+
+.nav-link {
+  color: var(--color-body-dark);
+  font-size: 18px;
+  background-image: none;
+  opacity: .9;
+}
+
+.nav-link:hover { color: var(--color-annotation); text-decoration: none; }
+
+.menu-toggle {
+  display: none;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.35);
+  color: var(--color-primary-accent);
+  width: 44px;
+  height: 44px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 12px 24px;
+  border-radius: 0;
+  font-size: 18px;
+  letter-spacing: .08em;
+  line-height: 1;
+  text-decoration: none;
+  transition: transform var(--transition-speed), background var(--transition-speed), color var(--transition-speed), border-color var(--transition-speed), box-shadow var(--transition-speed);
+  cursor: pointer;
+  border: 1.5px solid var(--color-secondary-accent);
+  background-image: none;
+  box-shadow: 6px 6px 0 rgba(79,195,247,0.22);
+}
+
+.btn:hover {
+  transform: translate(-2px, -2px);
+  text-decoration: none;
+  box-shadow: 9px 9px 0 rgba(255,213,79,0.24);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--color-secondary-accent);
+  border-color: var(--color-secondary-accent);
+}
+
+.btn-outline:hover {
+  color: var(--color-bg);
+  background: var(--color-secondary-accent);
+}
+
+.btn-solid {
+  background: var(--color-primary-accent);
+  color: var(--color-bg);
+  border-color: var(--color-primary-accent);
+}
+
+.btn-solid:hover {
+  color: var(--color-bg);
+  background: var(--color-annotation);
+  border-color: var(--color-annotation);
+}
+
+.btn-white {
+  border-color: var(--color-primary-accent);
+  color: var(--color-primary-accent);
+  background: transparent;
+}
+
+.btn-white:hover { background: var(--color-primary-accent); color: var(--color-bg); }
+
+/* Hero */
+.hero {
+  overflow: hidden;
+  color: var(--color-body-dark);
+  padding-top: 74px;
+  padding-bottom: 72px;
+  background:
+    radial-gradient(circle at 75% 12%, rgba(79,195,247,0.22), transparent 26rem),
+    radial-gradient(circle at 18% 72%, rgba(255,213,79,0.11), transparent 22rem),
+    linear-gradient(rgba(10,35,66,0.96), rgba(10,35,66,0.96)),
+    var(--blueprint-grid);
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  cursor: var(--crosshair-cursor);
+}
+
+.hero::before {
+  content: "DOC-SECURITY / ACCESS-SCHEMATIC";
+  position: absolute;
+  right: 24px;
+  top: 96px;
+  color: var(--color-annotation);
+  font-size: 11px;
+  font-family: var(--font-body);
+  font-style: italic;
+  letter-spacing: .12em;
+  opacity: 0;
+  animation: annotationReveal .7s ease .5s forwards;
+}
+
+.breadcrumb,
+.meta-bar {
+  color: rgba(232,244,253,0.74);
+  font-size: 13px;
+  font-family: var(--font-body);
+}
+
+.breadcrumb { margin-bottom: 1.4rem; }
+.breadcrumb a { color: rgba(232,244,253,0.86); }
+.meta-bar {
+  margin-bottom: 2rem;
+  border-bottom: 1px solid rgba(255,255,255,0.25);
+  padding-bottom: 1rem;
+}
+
+.quick-answer {
+  position: relative;
+  background:
+    linear-gradient(rgba(13,45,84,0.84), rgba(13,45,84,0.84)),
+    var(--blueprint-grid);
+  border: 1px solid rgba(255,255,255,0.38);
+  border-left: 6px solid var(--color-annotation);
+  color: var(--color-body-dark);
+  padding: 26px;
+  border-radius: 0;
+  margin: 2rem 0;
+  box-shadow: var(--shadow-card);
+}
+
+.quick-answer::after {
+  content: "DIM: 01";
+  position: absolute;
+  right: 16px;
+  top: -12px;
+  padding: 0 8px;
+  background: var(--color-bg);
+  color: var(--color-annotation);
+  font-size: 11px;
+  font-family: var(--font-body);
+  font-style: italic;
+  opacity: 0;
+  animation: annotationReveal .55s ease .9s forwards;
+}
+
+.quick-answer-label {
+  font-size: 22px;
+  color: var(--color-annotation);
+  margin-bottom: 0.55rem;
+  display: block;
+}
+
+/* Blueprint schematic */
+.component-callout {
+  margin: 38px 0 0;
+  background:
+    linear-gradient(rgba(13,45,84,0.64), rgba(13,45,84,0.64)),
+    var(--blueprint-grid);
+  border: 1px solid rgba(255,255,255,0.38);
+  padding: 24px;
+  min-height: 250px;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+
+.component-callout svg {
+  width: 100%;
+  min-height: 230px;
+  display: block;
+}
+
+.draw-line,
+.component-callout .draw-line,
+.trace-path .draw-line {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: drawBlueprint 1200ms ease forwards;
+}
+
+.component-callout .draw-line:nth-of-type(2) { animation-delay: 120ms; }
+.component-callout .draw-line:nth-of-type(3) { animation-delay: 240ms; }
+.component-callout .draw-line:nth-of-type(4) { animation-delay: 360ms; }
+
+.blueprint-label {
+  font-family: var(--font-body);
+  font-size: 12px;
+  fill: var(--color-annotation);
+  font-style: italic;
+  letter-spacing: .08em;
+  opacity: 0;
+  animation: annotationReveal .5s ease forwards;
+}
+
+.blueprint-label:nth-of-type(1) { animation-delay: 500ms; }
+.blueprint-label:nth-of-type(2) { animation-delay: 620ms; }
+.blueprint-label:nth-of-type(3) { animation-delay: 740ms; }
+.blueprint-label:nth-of-type(4) { animation-delay: 860ms; }
+
+.blueprint-box { fill: rgba(255,255,255,0.04); stroke: rgba(255,255,255,0.9); stroke-width: 1.5; }
+.blueprint-line { stroke: rgba(255,255,255,0.9); stroke-width: 1.5; fill: none; }
+.blueprint-cyan { stroke: var(--color-secondary-accent); fill: none; }
+.blueprint-yellow { stroke: var(--color-annotation); fill: none; }
+
+/* Images */
+.content-visual {
+  margin: 2.4rem 0;
+  border: 1px solid rgba(10,35,66,0.18);
+  background:
+    linear-gradient(rgba(255,255,255,0.72), rgba(255,255,255,0.72)),
+    repeating-linear-gradient(0deg, rgba(10,35,66,0.06) 0 1px, transparent 1px 28px),
+    repeating-linear-gradient(90deg, rgba(10,35,66,0.06) 0 1px, transparent 1px 28px);
+  padding: 12px;
+  box-shadow: var(--shadow-card);
+}
+
+.hero .content-visual,
+.saas-moment .content-visual,
+footer .content-visual {
+  border-color: rgba(255,255,255,0.25);
+  background:
+    linear-gradient(rgba(13,45,84,0.78), rgba(13,45,84,0.78)),
+    var(--blueprint-grid);
+}
+
+.content-visual img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border: 1px solid rgba(10,35,66,0.12);
+  background: #fff;
+}
+
+.visual-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 26px;
+}
+
+.visual-grid .content-visual {
+  margin: 0;
+  height: 100%;
+}
+
+.visual-grid img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Cards */
+.horizontal-scroll-intro {
+  display: flex;
+  overflow-x: auto;
+  gap: 20px;
+  padding: 4px 0 20px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-color: var(--color-secondary-accent) rgba(10,35,66,0.14);
+}
+
+.scroll-card,
+.masonry-card,
+.quiz-container,
+.method-card {
+  position: relative;
+  background:
+    linear-gradient(#ffffff, #ffffff) padding-box,
+    linear-gradient(135deg, rgba(10,35,66,0.9), rgba(79,195,247,0.55)) border-box;
+  padding: 30px;
+  border: 1px solid transparent;
+  border-radius: 0;
+  box-shadow: var(--shadow-card);
+}
+
+.scroll-card {
+  min-width: 300px;
+  padding-top: 58px;
+}
+
+.scroll-card::before,
+.masonry-card::before,
+.quiz-container::before,
+.method-card::before {
+  content: "SPEC PANEL";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  background: var(--color-bg);
+  color: var(--color-secondary-accent);
+  font-size: 11px;
+  font-family: var(--font-body);
+  font-style: italic;
+  letter-spacing: .12em;
+}
+
+.scroll-card h3,
+.masonry-card h3,
+.method-card h3 { margin-top: 1.5rem; }
+
+.method-card {
+  margin: 2rem 0;
+  padding-top: 58px;
+  cursor: pointer;
+}
+
+.method-card::before { content: "CLICK TO EXPAND TECHNICAL SPEC"; }
+
+.method-card.is-expanded .spec-sheet {
+  max-height: 340px;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.spec-sheet {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transform: translateY(-8px);
+  transition: max-height .35s ease, opacity .28s ease, transform .28s ease;
+  margin-top: 18px;
+  color: var(--color-body-dark);
+  background:
+    linear-gradient(rgba(10,35,66,0.94), rgba(10,35,66,0.94)),
+    var(--blueprint-grid);
+  border: 1px solid rgba(255,255,255,0.26);
+  padding: 0 16px;
+}
+
+.method-card.is-expanded .spec-sheet { padding: 16px; }
+
+.spec-sheet code {
+  display: block;
+  white-space: pre-wrap;
+  font-family: var(--font-body);
+  color: var(--color-body-dark);
+  font-size: 13px;
+}
+
+/* Pull quote */
+.pull-quote-sig {
+  position: relative;
+  padding: 34px 40px;
+  margin: 3rem 0;
+  background:
+    linear-gradient(rgba(13,45,84,0.92), rgba(13,45,84,0.92)),
+    var(--blueprint-grid);
+  border: 1px solid rgba(255,255,255,0.38);
+  border-left: 4px solid var(--color-annotation);
+  border-radius: 0;
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--color-body-dark);
+  box-shadow: var(--shadow-card);
+}
+
+.pull-quote-sig::before {
+  content: '';
+  position: absolute;
+  left: -18px;
+  top: -18px;
+  width: 48px;
+  height: 48px;
+  background:
+    var(--color-bg)
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="%234FC3F7"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.6" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>') center/25px no-repeat;
+  border: 1px solid rgba(255,255,255,0.55);
+  border-radius: 0;
+}
+
+/* Premium recommendation */
+.saas-moment {
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 82% 18%, rgba(79,195,247,0.18), transparent 26rem),
+    linear-gradient(rgba(10,35,66,0.97), rgba(10,35,66,0.97)),
+    var(--blueprint-grid);
+  color: var(--color-body-dark);
+  text-align: center;
+  cursor: var(--crosshair-cursor);
+}
+
+.saas-moment h2, .saas-moment h3 { color: var(--color-primary-accent); }
+.saas-moment p {
+  color: var(--color-muted-dark);
+  font-size: 1rem;
+  max-width: 670px;
+  margin: 0 auto 2rem auto;
+}
+
+.feature-chips { display: flex; justify-content: center; gap: 12px; margin-bottom: 2rem; flex-wrap: wrap; }
+
+.chip {
+  border: 1px solid rgba(255,255,255,0.36);
+  color: var(--color-body-dark);
+  background: rgba(255,255,255,0.06);
+  padding: 8px 14px;
+  font-size: 13px;
+}
+
+.chip a { color: inherit; }
+
+.saas-dashboard {
+  background:
+    linear-gradient(rgba(13,45,84,0.76), rgba(13,45,84,0.76)),
+    var(--blueprint-grid);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 0;
+  padding: 12px;
+  margin: 3rem auto 0;
+  max-width: 900px;
+  box-shadow: 0 26px 70px rgba(0,0,0,0.38);
+}
+
+.saas-dashboard img { width: 100%; height: auto; object-fit: contain; border: 1px solid rgba(255,255,255,0.18); background:#fff; }
+
+.product-strip {
+  display: grid;
+  grid-template-columns: .75fr 1fr 1fr;
+  gap: 16px;
+  max-width: 900px;
+  margin: 18px auto 0;
+}
+
+.product-strip .content-visual img {
+  max-height: 240px;
+  margin: 0 auto;
+}
+
+.saas-ctas { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+
+/* Features */
+.features-masonry {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 24px;
+  align-items: start;
+}
+
+.masonry-card {
+  padding-top: 58px;
+}
+
+.masonry-card:nth-child(even) { margin-top: 30px; }
+
+.line-icon {
+  width: 44px;
+  height: 44px;
+  color: var(--color-secondary-accent);
+  margin: 2px 0 12px;
+}
+
+.line-icon path,
+.line-icon rect,
+.line-icon circle,
+.line-icon polyline,
+.line-icon line {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.6;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+}
+
+.card-visual {
+  margin: 1.25rem 0 0;
+  padding: 8px;
+  border: 1px solid rgba(10,35,66,0.16);
+  background: var(--color-light-bg);
+}
+
+.card-visual img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  background: #fff;
+}
+
+/* Tables */
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem 0;
+  font-family: var(--font-body);
+  background: #fff;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  border: 1px solid rgba(10,35,66,0.2);
+}
+
+.comparison-table th,
+.comparison-table td {
+  padding: 16px;
+  text-align: left;
+  border-bottom: 1px solid rgba(10,35,66,0.15);
+  vertical-align: top;
+}
+
+.comparison-table th {
+  background:
+    linear-gradient(rgba(10,35,66,0.94), rgba(10,35,66,0.94)),
+    var(--blueprint-grid);
+  color: var(--color-primary-accent);
+  font-size: 23px;
+  font-family: var(--font-heading);
+}
+
+.comparison-table td::before {
+  content: "CELL";
+  display: block;
+  margin-bottom: 5px;
+  color: var(--color-annotation);
+  font-size: 10px;
+  font-style: italic;
+  letter-spacing: .12em;
+}
+
+.highlight-row {
+  background: rgba(79,195,247,0.14);
+  box-shadow: inset 5px 0 0 var(--color-secondary-accent);
+}
+
+/* Quiz */
+.quiz-container {
+  padding-top: 58px;
+  margin: 3rem 0;
+}
+
+.quiz-container::before { content: "INTERACTIVE ACCESS MATRIX"; }
+
+.quiz-options { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; }
+
+.quiz-label {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  border: 1px solid rgba(10,35,66,0.22);
+  background: rgba(235,244,255,0.72);
+  cursor: pointer;
+  transition: var(--transition-speed);
+  font-family: var(--font-body);
+}
+
+.quiz-label:hover {
+  background: rgba(79,195,247,0.18);
+  border-color: var(--color-secondary-accent);
+}
+
+.quiz-label input { margin-right: 15px; transform: scale(1.12); }
+#quiz-result {
+  margin-top: 24px;
+  padding: 20px;
+  display: none;
+  background:
+    linear-gradient(rgba(10,35,66,0.94), rgba(10,35,66,0.94)),
+    var(--blueprint-grid);
+  color: var(--color-body-dark);
+  border: 1px solid rgba(255,255,255,0.25);
+}
+
+/* FAQ */
+.faq-group { margin-bottom: 2.5rem; }
+
+.faq-group h3 {
+  border-bottom: 2px solid rgba(79,195,247,0.4);
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.faq-item {
+  margin-bottom: 20px;
+  padding: 18px 18px 4px;
+  background: rgba(255,255,255,0.72);
+  border: 1px solid rgba(10,35,66,0.14);
+}
+
+.faq-question {
+  font-size: 1.6rem;
+  color: var(--color-bg);
+  margin-bottom: 8px;
+}
+
+/* Ticker */
+.ticker-wrap {
+  width: 100%;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid rgba(10,35,66,0.18);
+  padding: 30px 0;
+  box-shadow: var(--shadow-card);
+}
+
+.ticker { display: flex; width: max-content; animation: ticker 30s linear infinite; }
+.ticker:hover { animation-play-state: paused; }
+
+.ticker-item {
+  width: 400px;
+  padding: 0 30px;
+  border-right: 1px solid rgba(10,35,66,0.16);
+  font-style: italic;
+  white-space: normal;
+}
+
+.trace-path {
+  margin: 2rem 0;
+  background:
+    linear-gradient(rgba(10,35,66,0.95), rgba(10,35,66,0.95)),
+    var(--blueprint-grid);
+  border: 1px solid rgba(255,255,255,0.28);
+  padding: 14px;
+}
+
+.trace-path svg { width: 100%; display: block; min-height: 120px; }
+
+/* Footer */
+footer {
+  background:
+    linear-gradient(rgba(10,35,66,0.96), rgba(10,35,66,0.96)),
+    var(--blueprint-grid);
+  color: var(--color-body-dark);
+  padding: 64px 0 30px;
+  font-family: var(--font-body);
+  border-top: 1px solid rgba(255,255,255,0.22);
+  cursor: var(--crosshair-cursor);
+}
+
+footer a { color: var(--color-secondary-accent); }
+footer h3, footer h4 { color: var(--color-primary-accent) !important; }
+
+.footer-disclosure {
+  font-size: 13px;
+  color: rgba(232,244,253,0.76);
+  margin-top: 40px;
+  border-top: 1px solid rgba(255,255,255,0.16);
+  padding-top: 20px;
+}
+
+
+
+/* Standardized image sizing: preserve full aspect ratio while reducing page scroll length */
+.content-visual,
+.card-visual,
+.saas-dashboard {
+  overflow: hidden;
+}
+
+.content-visual img {
+  width: auto;
+  max-width: 100%;
+  max-height: 340px;
+  margin: 0 auto;
+  object-fit: contain;
+}
+
+.saas-dashboard {
+  max-width: 860px;
+}
+
+.saas-dashboard img {
+  width: auto;
+  max-width: 100%;
+  max-height: 380px;
+  margin: 0 auto;
+  object-fit: contain;
+}
+
+.product-strip {
+  align-items: stretch;
+}
+
+.product-strip .content-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 180px;
+}
+
+.product-strip .content-visual img {
+  width: auto;
+  max-width: 100%;
+  max-height: 190px;
+  margin: 0 auto;
+  object-fit: contain;
+}
+
+.card-visual img {
+  width: auto;
+  max-width: 100%;
+  max-height: 210px;
+  margin: 0 auto;
+  object-fit: contain;
+}
+
+.visual-grid img {
+  width: auto;
+  max-width: 100%;
+  max-height: 210px;
+  margin: 0 auto;
+  object-fit: contain;
+}
+
+#comparison .content-visual img,
+#troubleshooting .content-visual img,
+#pricing .content-visual img {
+  max-height: 300px;
+}
+
+@media (max-width: 768px) {
+  .content-visual img {
+    max-height: 260px;
+  }
+
+  .saas-dashboard img {
+    max-height: 300px;
+  }
+
+  .product-strip .content-visual {
+    min-height: 150px;
+  }
+
+  .product-strip .content-visual img,
+  .card-visual img,
+  .visual-grid img {
+    max-height: 180px;
+  }
+}
+
+@keyframes ticker { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(-50%, 0, 0); } }
+@keyframes drawBlueprint { to { stroke-dashoffset: 0; } }
+@keyframes annotationReveal { to { opacity: 1; transform: translateY(0); } }
+
+[data-annotate] {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity .45s ease, transform .45s ease;
+}
+
+[data-annotate].is-visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 900px) {
+  .visual-grid,
+  .product-strip {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  :root { --grid-size: 60px; }
+  body, header, .hero, .saas-moment, footer { cursor: default; }
+  h1 { font-size: 44px; }
+  section { --section-padding-v: 62px; }
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    position: absolute;
+    top: 72px;
+    left: 0;
+    width: 100%;
+    background:
+      linear-gradient(rgba(10,35,66,0.98), rgba(10,35,66,0.98)),
+      var(--blueprint-grid);
+    padding: 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.22);
+    box-shadow: 0 18px 30px rgba(0,0,0,0.24);
+  }
+  .nav-links.active { display: flex; }
+  .menu-toggle { display: block; }
+  .masonry-card:nth-child(even) { margin-top: 0; }
+  .saas-ctas { flex-direction: column; }
+  .horizontal-scroll-intro { padding-bottom: 10px; }
+  .component-callout { padding: 12px; }
+  .component-callout svg { min-height: 260px; }
+  .draw-line { animation-duration: 800ms; }
+  .comparison-table { display: block; overflow-x: auto; }
+  .site-title { font-size: 23px; }
+}
+</style>
+</head>
+<body>
+<!-- HEADER -->
+<header>
+<div class="container header-inner">
+<a class="site-title" href="/">
+<span aria-hidden="true" class="brand-mark">
+<svg focusable="false" role="img" viewbox="0 0 64 64">
+<path d="M32 5 L52 13 V29 C52 43 43 54 32 59 C21 54 12 43 12 29 V13 Z" fill="none" stroke="currentColor" stroke-width="2.5"></path>
+<path d="M23 32 L29 38 L43 23" fill="none" stroke="#FFD54F" stroke-linecap="square" stroke-width="2.5"></path>
+<path d="M18 18 H46 M18 46 H46 M8 32 H18 M46 32 H56" fill="none" stroke="rgba(255,255,255,.78)" stroke-width="1.4"></path>
+</svg>
+</span>
+<span>Doc Protect Guide</span></a>
+<button aria-label="Toggle navigation" class="menu-toggle">☰</button>
+<nav class="nav-links">
+<a class="nav-link" href="#overview">Overview</a>
+<a class="nav-link" href="#methods">Methods</a>
+<a class="nav-link" href="#recommendation">Recommendation</a>
+<a class="nav-link" href="#comparison">Compare</a>
+<a class="nav-link" href="#faq">FAQ</a>
+<a class="btn btn-outline" href="#recommendation">See Our Top Pick →</a>
+</nav>
+</div>
+</header>
+<!-- S1: HERO -->
+<section class="hero">
+<div class="reading-container">
+<div class="breadcrumb">
+<a href="/">Home</a> &gt; <span>Document Security</span>
+</div>
+<h1>Can You Password Protect a Google Doc? Alternatives Explained</h1>
+<p>If you're looking for a simple "add password" button in Google Docs, you won't find one. Here is exactly how Google handles document security, how to lock down your files using permissions, and when you need <a href="https://psbios.com/file-encryption-explained/" rel="noopener noreferrer" target="_blank">true encryption</a> instead.</p>
+<div class="meta-bar">
+        Editorial Team · Last Updated: October 2023 · 8 min read
+      </div>
+<div class="quick-answer">
+<span class="quick-answer-label">Quick Answer</span>
+<strong>No, you cannot directly password protect a Google Doc with a traditional "open password."</strong> Google relies on account-based permissions (restricting access to specific email addresses). If you need to enforce a strict password to open a document or protect it outside of Google Drive, you must download the file and use <a href="https://www.cloudwards.net/best-encryption-software/" rel="noopener noreferrer" target="_blank">third-party encryption software</a> or specialized folder protection tools.
+      </div><div aria-hidden="true" class="component-callout" data-annotate="">
+<svg preserveaspectratio="xMidYMid meet" viewbox="0 0 760 260">
+<defs>
+<marker id="arrow-tip" markerheight="10" markerwidth="10" orient="auto" refx="8" refy="3">
+<path d="M0,0 L9,3 L0,6 Z" fill="#4FC3F7"></path>
+</marker>
+</defs>
+<rect class="blueprint-box draw-line" height="78" width="150" x="35" y="62"></rect>
+<rect class="blueprint-box draw-line" height="104" width="150" x="305" y="38"></rect>
+<rect class="blueprint-box draw-line" height="78" width="150" x="575" y="62"></rect>
+<rect class="blueprint-box draw-line" height="42" width="152" x="304" y="180"></rect>
+<path class="blueprint-line draw-line" d="M185 101 H305" marker-end="url(#arrow-tip)"></path>
+<path class="blueprint-line draw-line" d="M455 92 H575" marker-end="url(#arrow-tip)"></path>
+<path class="blueprint-cyan draw-line" d="M380 142 V180" marker-end="url(#arrow-tip)"></path>
+<path class="blueprint-yellow draw-line" d="M110 40 H650 M110 40 V54 M650 40 V54"></path>
+<text class="blueprint-label" x="57" y="96">GOOGLE ACCESS</text>
+<text class="blueprint-label" x="327" y="92">LOCAL VAULT</text>
+<text class="blueprint-label" x="604" y="96">SYNCED DEVICES</text>
+<text class="blueprint-label" x="330" y="207">AES-256 LAYER</text>
+<text class="blueprint-label" x="314" y="30">COMPONENT CALLOUT</text>
+</svg>
+</div>
+</div>
+</section>
+<!-- S2 & S3: OVERVIEW & SCROLL INTRO (Seed A) -->
+<section class="bg-alt" id="overview">
+<div class="reading-container">
+<h2>Why Document Password Protection Is Not the Same as Encryption</h2>
+<p>When people ask how to make a Google Doc password protected, they usually mean they want to stop unauthorized people from reading it. However, the way cloud platforms like Google Workspace operate is fundamentally different from traditional desktop software like Microsoft Word.</p><figure class="content-visual" data-annotate="">
+<img alt="Blueprint-style virtual document secured with password protection concepts" decoding="async" loading="lazy" src="https://i.ibb.co/ZRsTRpZQ/sheet-of-virtual-paper.jpg"/>
+</figure>
+<div class="horizontal-scroll-intro">
+<div class="scroll-card" data-annotate="">
+<h3>The Google Way: Permissions</h3>
+<p>Instead of a password, Google uses identity. You restrict the document so that only users logged into specific, approved Google accounts can view or edit it. It's secure, but requires a Google account.</p>
+</div>
+<div class="scroll-card" data-annotate="">
+<h3>The Traditional Way: Open Passwords</h3>
+<p>This is what MS Word or PDFs use. The file itself is locked. Anyone with the file can open it <em>if</em> they have the password. Google Docs does not natively support this.</p>
+</div>
+<div class="scroll-card" data-annotate="">
+<h3>The Secure Way: True Encryption</h3>
+<p>Using algorithms like AES-256 to scramble the file data. If you download a Google Doc, you can use third-party tools to apply true encryption before storing it on a USB or sending it via email.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- S4: COMPLETE METHODS GUIDE -->
+<section id="methods">
+<div class="reading-container">
+<h2>How to Restrict Access to Google Docs (Native Methods)</h2>
+<p>Since you can't set a simple open password, here are the built-in ways to secure a document.</p><figure class="content-visual" data-annotate="">
+<img alt="Account privacy lock illustration for restricted Google Docs access" decoding="async" loading="lazy" src="https://i.ibb.co/C3dZb4Cy/account-privacy-lock-illustration.png"/>
+</figure><div aria-expanded="false" class="method-card" role="button" tabindex="0"><h3>Method 1: Restrict Access to Specific People (Best for Privacy)</h3><p>This is the most secure native option. By removing general link access, you force users to verify their identity via their Google login.</p><ol>
+<li>Open your Google Doc.</li>
+<li>Click the blue <strong>Share</strong> button in the top right corner.</li>
+<li>Under "General access," change the setting to <strong>Restricted</strong>.</li>
+<li>In the "Add people and groups" field, type the exact email addresses of the people who are allowed to see the file.</li>
+<li>Click <strong>Done</strong>.</li>
+</ol><figure class="content-visual" data-annotate="">
+<img alt="Blocked access user illustration showing restricted document permissions" decoding="async" loading="lazy" src="https://i.ibb.co/67JVy6mQ/blocked-access-user-illustration.png"/>
+</figure><div class="pull-quote-sig">
+        If you leave a document set to "Anyone with the link," it is effectively public. A leaked link means anyone can read your private information, regardless of whether you intended to share it.
+      </div><div aria-hidden="true" class="spec-sheet">
+<code>ACCESS_MODE: RESTRICTED\nIDENTITY_CHECK: GOOGLE_ACCOUNT\nLINK_STATE: PRIVATE\nRISK_FLAG: LEAKED_LINK_DISABLED</code>
+</div></div><div aria-expanded="false" class="method-card" role="button" tabindex="0"><h3>Method 2: Prevent Document Copying, Printing, and Downloading</h3><p>Sometimes you want people to read a document, but you don't want them stealing the contents or duplicating it. You can lock the document from being edited or copied.</p><ol>
+<li>Click the <strong>Share</strong> button.</li>
+<li>Click the <strong>Settings gear icon</strong> at the top of the Share dialog.</li>
+<li>Uncheck the box that says <strong>"Viewers and commenters can see the option to download, print, and copy."</strong></li>
+</ol><figure class="content-visual" data-annotate="">
+<img alt="Folder Lock share permissions screenshot for controlled document access" decoding="async" loading="lazy" src="https://i.ibb.co/1fDfv4Jj/folder-lock-10-screenshot-share-permissions.png"/>
+</figure><p><em>Note:</em> This deters casual copying, but determined users can still take screenshots.</p><div aria-hidden="true" class="spec-sheet">
+<code>ACCESS_MODE: VIEW_ONLY\nCOPY_CONTROL: DISABLED\nPRINT_DOWNLOAD: DISABLED\nRISK_FLAG: SCREENSHOT_POSSIBLE</code>
+</div></div>
+
+
+
+
+
+
+
+
+</div>
+</section>
+<!-- S5: WHY RECOMMEND (PREMIUM SAAS MOMENT) -->
+<section class="saas-moment" id="recommendation">
+<div class="container">
+<h2>The Tool We Recommend for True Document Protection</h2>
+<p>Google's native permissions are great for collaboration, but they fail when you need to store documents locally, move them to a <a href="https://techleez.co.uk/why-you-should-password-protect-your-usb-drive/" rel="noopener noreferrer" target="_blank">USB drive</a>, or share them securely with non-Google users. For absolute control across Windows, Mac, iOS, and Android, we recommend <strong><a href="https://cloudstorageinfo.org/folder-lock-review" rel="noopener noreferrer" target="_blank">Folder Lock</a></strong>.</p>
+<div class="feature-chips">
+<span class="chip">AES-256 Encryption</span>
+<span class="chip">Mac &amp; Windows Support</span>
+<span class="chip">Cross-Device Syncing</span>
+<span class="chip">Mobile Vault Apps</span>
+</div>
+<div class="saas-dashboard"><img alt="Folder Lock 10 main dashboard interface for document protection" decoding="async" loading="lazy" src="https://i.ibb.co/ynCZTHt1/folder-lock-10-main-screen.png"/></div><div class="product-strip">
+<figure class="content-visual" data-annotate=""><img alt="Folder Lock 10 software boxshot for secure document storage" decoding="async" loading="lazy" src="https://i.ibb.co/V0Sw4tk7/folder-lock-10-boxshot.png"/></figure>
+<figure class="content-visual" data-annotate=""><img alt="Folder Lock 10 feature banner showing multi-layer file security" decoding="async" loading="lazy" src="https://i.ibb.co/39b4VD9H/folder-lock-10-feature-banner.png"/></figure>
+<figure class="content-visual" data-annotate=""><img alt="Folder Lock 10 macOS screenshot for cross-platform document encryption" decoding="async" loading="lazy" src="https://i.ibb.co/fzCSg3ZJ/folder-lock-10-mac-screenshot-800x600.png"/></figure>
+</div>
+<div class="saas-ctas" style="margin-top: 40px;">
+<a class="btn btn-solid" href="https://www.newsoftwares.net/download/folderlock10-en/folder-lock-en.exe" rel="noopener noreferrer" target="_blank">Try Folder Lock Free →</a>
+<a class="btn btn-white" href="https://store.newsoftwares.net/?add=fl10" rel="noopener noreferrer" target="_blank">View Full Version →</a>
+</div>
+</div>
+</section>
+<!-- S6: INTERACTIVE USE CASE SELECTOR (QUIZ) -->
+<section class="bg-alt" id="quiz">
+<div class="reading-container">
+<h2>Interactive Guide: Choose the Right Protection Level</h2>
+<p>Not sure which method to use? Answer one question below to get our recommendation.</p><figure class="content-visual" data-annotate="">
+<img alt="Data security devices lock illustration for choosing a document protection level" decoding="async" loading="lazy" src="https://i.ibb.co/ZC5xRkQ/data-security-devices-lock-illustration.png"/>
+</figure>
+<div class="quiz-container">
+<h3>What are you trying to protect?</h3>
+<div class="quiz-options">
+<label class="quiz-label" data-annotate="">
+<input name="security-need" type="radio" value="collab"/>
+            I'm collaborating on a live document but want to keep strangers out.
+          </label>
+<label class="quiz-label" data-annotate="">
+<input name="security-need" type="radio" value="read-only"/>
+            I want someone to read my Google Doc, but they shouldn't be able to copy/paste the text.
+          </label>
+<label class="quiz-label" data-annotate="">
+<input name="security-need" type="radio" value="local"/>
+            I downloaded my Google Doc to my PC/USB and need to lock the actual file with a password.
+          </label>
+</div>
+<div id="quiz-result">
+<!-- Populated by JS -->
+</div>
+</div>
+</div>
+</section>
+<!-- S7: CORE FEATURES (MASONRY V3) -->
+<section id="features">
+<div class="container">
+<h2 style="text-align: center;">When to Use Third-Party Encryption</h2>
+<p style="text-align: center; max-width: 600px; margin: 0 auto 3rem;">If you export your Google Doc (as a Word file or PDF), native cloud protections disappear. Here is what dedicated software like Folder Lock provides.</p>
+<div class="features-masonry">
+<div class="masonry-card" data-annotate="">
+<svg aria-hidden="true" class="line-icon" viewbox="0 0 64 64"><rect height="24" width="36" x="14" y="28"></rect><path d="M22 28v-8a10 10 0 0 1 20 0v8"></path><path d="M32 38v8"></path></svg><h3>Lock Document from Editing (Locally)</h3>
+<p>Prevent offline tampering by applying military-grade <a href="https://www.cloudwards.net/best-encryption-software/" rel="noopener noreferrer" target="_blank">AES 256-bit encryption</a> to the exported file. It cannot be opened, altered, or copied without the master key, providing absolute security.</p>
+<figure class="card-visual" data-annotate="">
+<img alt="Encrypted folders feature graphic showing local document locking" decoding="async" loading="lazy" src="https://i.ibb.co/T9K6tn6/encrypt-folders.png"/>
+</figure></div>
+<div class="masonry-card" data-annotate="">
+<svg aria-hidden="true" class="line-icon" viewbox="0 0 64 64"><path d="M16 22h32v24H16z"></path><path d="M24 46h16"></path><path d="M20 18h24"></path><circle cx="32" cy="34" r="5"></circle></svg><h3><a href="https://mspoweruser.com/secure-your-data-top-usb-password-protection-tools/" rel="noopener noreferrer" target="_blank">Password Protect USB Drives</a></h3>
+<p>Moving a sensitive exported Doc to a flash drive? Software can lock the entire portable drive, ensuring your files remain totally inaccessible if the physical drive is ever lost or stolen.</p>
+<figure class="card-visual" data-annotate="">
+<img alt="USB flash drive image for portable password-protected documents" decoding="async" loading="lazy" src="https://i.ibb.co/20kMF8XM/USB-flash-drive-resting.jpg"/>
+</figure></div>
+<div class="masonry-card" data-annotate="">
+<svg aria-hidden="true" class="line-icon" viewbox="0 0 64 64"><rect height="18" width="22" x="8" y="18"></rect><rect height="30" width="20" x="36" y="14"></rect><path d="M19 42h26M32 29h4"></path></svg><h3>Cross-Platform Document Access</h3>
+<p>True encryption shouldn't limit where you work. Modern solutions allow you to encrypt a file on your Windows PC and securely open or sync it on your Mac, iPhone, or Android device.</p>
+<figure class="card-visual" data-annotate="">
+<img alt="Cross-platform synchronization illustration for Windows Mac iPhone and Android access" decoding="async" loading="lazy" src="https://i.ibb.co/jZfz7Hzz/Cross-Platform-Synchronization.jpg"/>
+</figure></div>
+<div class="masonry-card" data-annotate="">
+<svg aria-hidden="true" class="line-icon" viewbox="0 0 64 64"><path d="M18 42h28a10 10 0 0 0 0-20 15 15 0 0 0-28 4 8 8 0 0 0 0 16z"></path><path d="M27 32h10"></path></svg><h3>Local Google Drive Protection</h3>
+<p>If you use the Google Drive desktop app, your synced files sit open on your hard drive. Companion tools (like <a href="https://www.24-7pressrelease.com/press-release/435143/newsoftwaresnet-releases-a-cloud-secure-password-protection-for-all-cloud-platforms" rel="noopener noreferrer" target="_blank">Cloud Secure</a>) allow you to password-protect the local Drive folder on a shared PC, while background syncing to the cloud continues uninterrupted.</p>
+<figure class="card-visual" data-annotate="">
+<img alt="Local cloud lock image for protecting synced Google Drive folders" decoding="async" loading="lazy" src="https://i.ibb.co/7d6cJXN2/Local-Cloud-Lock.jpg"/>
+</figure></div>
+</div>
+</div>
+</section>
+<!-- S8: METHODS COMPARISON (V6 HIGHLIGHTED ROW) -->
+<section class="bg-alt" id="comparison">
+<div class="reading-container">
+<h2>Alternatives to Google Doc Password Protection (Compared)</h2><figure class="content-visual" data-annotate="">
+<img alt="Windows encryption software comparison concept for Google Doc password protection alternatives" decoding="async" loading="lazy" src="https://i.ibb.co/K149f6r/best-windows-encryption-software.jpg"/>
+</figure>
+<div aria-hidden="true" class="trace-path" data-annotate="">
+<svg preserveaspectratio="xMidYMid meet" viewbox="0 0 760 130">
+<path class="blueprint-cyan draw-line" d="M60 65 C160 12 260 118 380 65 S600 12 700 65" stroke-width="2"></path>
+<circle class="blueprint-box draw-line" cx="60" cy="65" r="18"></circle>
+<circle class="blueprint-box draw-line" cx="380" cy="65" r="18"></circle>
+<circle class="blueprint-box draw-line" cx="700" cy="65" r="18"></circle>
+<text class="blueprint-label" x="34" y="105">SHARE</text>
+<text class="blueprint-label" x="345" y="105">EXPORT</text>
+<text class="blueprint-label" x="665" y="105">ENCRYPT</text>
+</svg>
+</div><table class="comparison-table">
+<thead>
+<tr data-annotate="">
+<th>Method</th>
+<th>Security Level</th>
+<th>Offline Support</th>
+<th>Best For</th>
+</tr>
+</thead>
+<tbody>
+<tr data-annotate="">
+<td>Google "Restricted" Access</td>
+<td>Moderate</td>
+<td>No</td>
+<td>Live cloud collaboration</td>
+</tr>
+<tr data-annotate="">
+<td>Export as PDF (Native OS tools)</td>
+<td>Low</td>
+<td>Yes</td>
+<td>Basic read-only sharing</td>
+</tr>
+<tr data-annotate="">
+<td>ZIP File with Password (7-Zip)</td>
+<td>High</td>
+<td>Yes</td>
+<td>Archiving old documents</td>
+</tr>
+<tr class="highlight-row" data-annotate="">
+<td>Folder Lock (Recommended)</td>
+<td>Maximum (AES-256)</td>
+<td>Yes</td>
+<td>Total privacy &amp; offline locking</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- S9 & S16: TUTORIAL & TROUBLESHOOTING -->
+<section id="troubleshooting">
+<div class="reading-container">
+<h2>How to Password Protect a Google Doc File (By Exporting)</h2>
+<p>If you absolutely must have a password prompt when opening the text, follow these steps:</p>
+<ol>
+<li>Open your Google Doc.</li>
+<li>Click <strong>File</strong> &gt; <strong>Download</strong> &gt; <strong>Microsoft Word (.docx)</strong>.</li>
+<li>Once downloaded to your desktop, open Folder Lock (or your chosen <a href="https://www.avast.com/c-password-protect-file-folder-windows" rel="noopener noreferrer" target="_blank">encryption software</a>).</li>
+<li>Drag and drop the downloaded file into the secure vault.</li>
+<li>The file is now encrypted and requires a password to open locally.</li>
+</ol><figure class="content-visual" data-annotate="">
+<img alt="Secure virtual drive illustration for exported Google Doc password protection" decoding="async" loading="lazy" src="https://i.ibb.co/q3LHT6Kb/Secure-Virtual-Drive.jpg"/>
+</figure>
+<h3 style="margin-top: 3rem;">Troubleshooting: Common File Protection Issues</h3>
+<div class="pull-quote-sig" style="margin-top: 1rem;">
+<strong>"Couldn't be opened for import if the file is password protected, try removing the password"</strong><br/><br/>
+        If you see this error in Google Drive, it means you uploaded a Word/Excel file that was already password-protected on your desktop. Google's servers cannot bypass the encryption to display the preview. You must remove the password locally, re-upload it, and use Google's permission settings instead.
+      </div>
+</div>
+</section>
+<!-- S13: PRICING AND PLANS (V1 HORIZONTAL ROWS) -->
+<section class="bg-alt" id="pricing" style="background-color: #fff;">
+<div class="reading-container">
+<h2>Free vs. Pro: Which Protection Level Do You Need?</h2>
+<p>If you decide to step up to dedicated encryption, you don't necessarily have to pay immediately. Here is how the standard tiers break down based on actual usage needs.</p><figure class="content-visual" data-annotate="">
+<img alt="Folder Lock software boxshot for free and pro document protection tiers" decoding="async" loading="lazy" src="https://i.ibb.co/V0Sw4tk7/folder-lock-10-boxshot.png"/>
+</figure>
+<table class="comparison-table" style="margin-top: 2rem;">
+<thead>
+<tr data-annotate="">
+<th>Features</th>
+<th>Free Version</th>
+<th>Pro Version ($39.95)</th>
+</tr>
+</thead>
+<tbody>
+<tr data-annotate="">
+<td><strong>Secure Locker Size</strong></td>
+<td>Up to 1 GB</td>
+<td><strong>Unlimited</strong></td>
+</tr>
+<tr data-annotate="">
+<td><strong>Cross-Device Syncing</strong></td>
+<td>Up to 2 Devices</td>
+<td><strong>Up to 5 Devices</strong></td>
+</tr>
+<tr data-annotate="">
+<td><strong>Secure File Sharing</strong></td>
+<td>Not available</td>
+<td><strong>Unlimited Users</strong></td>
+</tr>
+<tr class="highlight-row" data-annotate="">
+<td><strong>Platform Support</strong></td>
+<td>PC, Mac, iOS, Android</td>
+<td>PC, Mac, iOS, Android</td>
+</tr>
+</tbody>
+</table>
+<div style="text-align: center; margin-top: 2rem;">
+<a class="btn btn-solid" href="https://www.newsoftwares.net/download/folderlock10-en/folder-lock-en.exe" rel="noopener noreferrer" target="_blank">Start with the Free Version →</a>
+</div>
+</div>
+</section>
+<!-- S20: FAQ (V6 GROUPED) -->
+<section class="bg-alt" id="faq">
+<div class="reading-container">
+<h2>Frequently Asked Questions</h2>
+<div class="faq-group">
+<h3>Google Docs Privacy Settings</h3>
+<div class="faq-item" data-annotate="">
+<div class="faq-question">Can you password protect a Google Doc directly?</div>
+<p>No. Google Workspace does not offer an "open password" feature for individual Google Docs, Sheets, or Slides. You must use sharing permissions to restrict access.</p>
+</div>
+<div class="faq-item" data-annotate="">
+<div class="faq-question">How to make a Google Doc viewable by link but not editable?</div>
+<p>Click Share, change "General access" to "Anyone with the link", and ensure the role dropdown is set to "Viewer" rather than "Editor".</p>
+</div>
+</div>
+<div class="faq-group">
+<h3>Advanced Security</h3>
+<div class="faq-item" data-annotate="">
+<div class="faq-question">What is the difference between an open password and a permissions password?</div>
+<p>An open password encrypts the file itself—without it, the file cannot be read by any software. A permissions password (like in older PDFs) just asks the software to politely disable printing or editing, which can easily be bypassed by hacking tools.</p>
+</div>
+<div class="faq-item" data-annotate="">
+<div class="faq-question">Can I create a password protected folder in Google Drive?</div>
+<p>Not natively. You can restrict a Google Drive folder to specific users, but it won't prompt for a password upon clicking. For <a href="https://www.digitalcitizen.life/5-tools-password-protect-your-folders-windows/" rel="noopener noreferrer" target="_blank">password-protected folders</a>, you need desktop software.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- S22: FINAL VERDICT -->
+<section id="verdict">
+<div class="reading-container" style="text-align: center;">
+<h2>Our Verdict</h2>
+<p>While you cannot put a traditional password on a live Google Doc, restricting access via Google's Share settings is usually sufficient for everyday cloud collaboration. However, the moment your document leaves the cloud—via download, email, or USB—those protections vanish.</p>
+<p>For sensitive offline documents, financial records, and personal archives, relying on a dedicated encryption tool provides the peace of mind that a simple permissions link cannot.</p>
+<div style="margin-top: 30px;">
+<a class="btn btn-outline" href="https://www.newsoftwares.net/download/folderlock10-en/folder-lock-en.exe" rel="noopener noreferrer" style="margin-right: 15px;" target="_blank">Try Folder Lock free →</a>
+<a class="btn btn-outline" href="https://store.newsoftwares.net/?add=fl10" rel="noopener noreferrer" target="_blank">Get the full version →</a>
+</div>
+</div>
+</section>
+<!-- FOOTER -->
+<footer>
+<div class="container">
+<div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+<div>
+<h3 style="color: #fff; margin-top:0;"><span class="brand-lockup">
+<span aria-hidden="true" class="brand-mark">
+<svg focusable="false" role="img" viewbox="0 0 64 64">
+<path d="M32 5 L52 13 V29 C52 43 43 54 32 59 C21 54 12 43 12 29 V13 Z" fill="none" stroke="currentColor" stroke-width="2.5"></path>
+<path d="M23 32 L29 38 L43 23" fill="none" stroke="#FFD54F" stroke-linecap="square" stroke-width="2.5"></path>
+<path d="M18 18 H46 M18 46 H46 M8 32 H18 M46 32 H56" fill="none" stroke="rgba(255,255,255,.78)" stroke-width="1.4"></path>
+</svg>
+</span>
+<span>Doc Protect Guide</span></span></h3>
+<p style="color: #cbd5e1; max-width: 300px; font-size: 14px;">The complete guide to securing Google Docs, understanding permissions, and implementing true file encryption.</p>
+</div>
+<div>
+<h4 style="color: #fff; margin-bottom: 15px;">Navigation</h4>
+<ul style="list-style: none; padding: 0;">
+<li><a href="#methods">Access Methods</a></li>
+<li><a href="#recommendation">Software Pick</a></li>
+<li><a href="#faq">FAQ</a></li>
+</ul>
+</div>
+</div>
+<div class="footer-disclosure">
+<p>This site operates as an independent editorial resource. Some links may earn a referral commission at no cost to you. Product recommendations reflect editorial judgment and independent assessment. Folder Lock is developed by <a href="https://www.newsoftwares.net" rel="noopener noreferrer" target="_blank">NewSoftwares.net</a>.</p>
+<p style="margin-top: 10px;">© 2023 DocProtectGuide. All rights reserved.</p>
+</div>
+</div>
+</footer>
+<!-- Scripts -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const toggle = document.querySelector('.menu-toggle');
+  const nav = document.querySelector('.nav-links');
+
+  if (toggle && nav) {
+    toggle.addEventListener('click', () => nav.classList.toggle('active'));
+  }
+
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const target = document.querySelector(this.getAttribute('href'));
+      if (!target) return;
+      e.preventDefault();
+      if (nav) nav.classList.remove('active');
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  const quizInputs = document.querySelectorAll('input[name="security-need"]');
+  const resultDiv = document.getElementById('quiz-result');
+
+  quizInputs.forEach(input => {
+    input.addEventListener('change', (e) => {
+      if (!resultDiv) return;
+      resultDiv.style.display = 'block';
+      const val = e.target.value;
+      if (val === 'collab') {
+        resultDiv.innerHTML = '<h4 style="color:var(--color-annotation); margin-top:0;">Recommendation: Google Restricted Access</h4><p style="margin-bottom:0;">Use Google Docs native share settings. Set the link to "Restricted" and manually invite collaborators by email.</p>';
+      } else if (val === 'read-only') {
+        resultDiv.innerHTML = '<h4 style="color:var(--color-annotation); margin-top:0;">Recommendation: Google Viewer Settings</h4><p style="margin-bottom:0;">Use Google Docs native share settings. Set the user to "Viewer" and disable the option to download, print, or copy in the settings gear.</p>';
+      } else if (val === 'local') {
+        resultDiv.innerHTML = '<h4 style="color:var(--color-annotation); margin-top:0;">Recommendation: Third-Party Encryption</h4><p style="margin-bottom:0;">Google Docs cannot do this natively. Download the file as a .docx, then use software like <strong>Folder Lock</strong> to encrypt and password-protect the file on your hard drive.</p>';
+      }
+    });
+  });
+
+  document.querySelectorAll('.method-card').forEach(card => {
+    const toggleCard = () => {
+      const expanded = card.classList.toggle('is-expanded');
+      card.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+    };
+    card.addEventListener('click', toggleCard);
+    card.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        toggleCard();
+      }
+    });
+  });
+
+  const annotated = document.querySelectorAll('[data-annotate]');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const index = Array.from(annotated).indexOf(entry.target);
+        entry.target.style.transitionDelay = `${Math.min(index * 100, 700)}ms`;
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.16 });
+
+  annotated.forEach(el => observer.observe(el));
+});
+</script>
+<!-- Schema Markup -->
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [{
+      "@type": "Question",
+      "name": "Can you password protect a Google Doc directly?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Google Workspace does not offer an open password feature for individual Google Docs. You must use sharing permissions to restrict access."
+      }
+    }, {
+      "@type": "Question",
+      "name": "How to make a Google Doc viewable by link but not editable?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Click Share, change General access to Anyone with the link, and ensure the role dropdown is set to Viewer rather than Editor."
+      }
+    }]
+  }
+  </script>
+</body>
+</html>
